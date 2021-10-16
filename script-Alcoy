@@ -15,7 +15,7 @@
 #Write-Host "Los parámetros son:"$Param1 " " $Param2
 #pause
 
-#Función 1. Promocionar a CD
+#Función 1. Promocionar
 function Subdominio
 {
 Import-Module ADDSDeployment
@@ -46,17 +46,21 @@ if (!(Get-Module -Name ADDSDeployment)) #Se comprueba si se tiene cargado el mó
 Uninstall-ADDSDomainController -DemoteOperationMasterRole:$true -ForceRemoval:$true -Force:$true
 Uninstall-WindowsFeature -Name AD-Domain-Services, DNS -Confirm:$false
 }
-function 
+function Relacion
 {
-
+Nltest /DOMAIN_TRUSTS
 }
-function 
+function CargarAD
 {
-
+Install-WindowsFeature –Name AD-Domain-Services –IncludeManagementTools
 }
-function 
+function Arbol
 {
-
+Install-ADDSDomain 
+–Credential (Get-Credential upv.alcoy\Administrador) 
+–NewDomainName prensa.es
+–ParentDomainName upv.alcoy
+–DomainType TreeDomain –InstallDNS
 }
 function 
 {
@@ -88,10 +92,10 @@ function mostrarMenu
       
      
      Write-Host "1) Promocionar Subdominio" 
-     Write-Host "2) " 
-     Write-Host "3) " 
-     Write-Host "4) "     
-     Write-Host "5) "     
+     Write-Host "2) Despromocionar Subdominio" 
+     Write-Host "3) Comprobar Relacion" 
+     Write-Host "4) CargarAD"     
+     Write-Host "5) Crear Arbol"     
      Write-Host "6) "     
      Write-Host "7) "
      Write-Host "8) "
@@ -118,15 +122,15 @@ do
                 pause
            } '3' { 
                 Clear-Host  
-                
+                CargarAD
                 pause
            } '4' { 
                 Clear-Host  
-                
+                Relacion
                 pause
            } '5' { 
                 Clear-Host  
-                
+                Arbol
                 pause
            } '6' { 
                 Clear-Host  
