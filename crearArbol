@@ -1,0 +1,5 @@
+Install-ADDSDomain 
+–Credential (Get-Credential upv.alcoy\Administrador) 
+–NewDomainName prensa.es
+–ParentDomainName upv.alcoy
+–DomainType TreeDomain –InstallDNS
