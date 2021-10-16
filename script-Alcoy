@@ -16,9 +16,25 @@
 #pause
 
 #Función 1. Promocionar a CD
-function 
+function Subdominio
 {
-
+Import-Module ADDSDeployment
+Install-ADDSDomain `
+-NoGlobalCatalog:$false `
+-CreateDnsDelegation:$true `
+-Credential (Get-Credential) `
+-DatabasePath "C:\Windows\NTDS" `
+-DomainMode "WinThreshold" `
+-DomainType "ChildDomain" `
+-InstallDns:$true `
+-LogPath "C:\Windows\NTDS" `
+-NewDomainName "alcoy" `
+-NewDomainNetbiosName "ALCOY" `
+-ParentDomainName "upv.es" `
+-NoRebootOnCompletion:$false `
+-SiteName "Default-First-Site-Name" `
+-SysvolPath "C:\Windows\SYSVOL" `
+-Force:$true
 }
 function 
 {
@@ -65,7 +81,7 @@ function mostrarMenu
      Write-Host "================ $Titulo================" 
       
      
-     Write-Host "1) " 
+     Write-Host "1) Promocionar Subdominio" 
      Write-Host "2) " 
      Write-Host "3) " 
      Write-Host "4) "     
@@ -88,7 +104,7 @@ do
      { 
            '1' { 
                 Clear-Host  
-                
+                Subdominio
                 pause
            } '2' { 
                 Clear-Host  
